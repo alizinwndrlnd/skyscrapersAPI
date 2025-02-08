@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer("stories");
             $table->integer("finished");
             
-            $table->timestamps();
+          
         });
     }
 

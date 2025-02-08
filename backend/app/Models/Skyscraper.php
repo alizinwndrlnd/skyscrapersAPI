@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Skyscraper extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "name",
+        "city_id",
+        "height",
+        "stories",
+        "finished"
+    ];
 }

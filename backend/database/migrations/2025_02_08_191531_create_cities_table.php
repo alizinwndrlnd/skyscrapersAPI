@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("country_code", 2);
             $table->string("name", 25);
-            $table->timestamps();
+            
         });
     }
 

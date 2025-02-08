@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSkyscraperRequest;
 use App\Http\Requests\UpdateSkyscraperRequest;
+use App\Http\Resources\SkyscraperResource;
 use App\Models\Skyscraper;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Response;
+
 
 class SkyscraperController extends Controller
 {
@@ -13,7 +17,8 @@ class SkyscraperController extends Controller
      */
     public function index()
     {
-        //
+        $skyscrapers = Skyscraper::all();
+        return SkyscraperResource::collection($skyscrapers);
     }
 
     /**
@@ -27,9 +32,10 @@ class SkyscraperController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Skyscraper $skyscraper)
+    public function show(int $id):JsonResource
     {
-        //
+        $skyscraper = Skyscraper::findOrFail($id);
+        return new SkyscraperResource($skyscraper);
     }
 
     /**
@@ -37,14 +43,25 @@ class SkyscraperController extends Controller
      */
     public function update(UpdateSkyscraperRequest $request, Skyscraper $skyscraper)
     {
-        //
+        $data = $request->validated();
+        $skyscraper -> update($data);
+        return new SkyscraperResource($skyscraper -> load("city"));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Skyscraper $skyscraper)
+    public function destroy(int $id):Response
     {
-        //
+        $skyscraper = Skyscraper::findOrFail($id);
+        if($skyscraper ->delete())
+        {
+            return response()->noContent();
+        }
+        else {
+            abort(500);
+        }
+
+        
     }
 }
