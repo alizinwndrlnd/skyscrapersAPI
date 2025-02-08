@@ -17,7 +17,8 @@ class SkyscraperController extends Controller
      */
     public function index()
     {
-        $skyscrapers = Skyscraper::all();
+   
+        $skyscrapers = Skyscraper::with(["city"])->get();
         return SkyscraperResource::collection($skyscrapers);
     }
 
@@ -26,7 +27,9 @@ class SkyscraperController extends Controller
      */
     public function store(StoreSkyscraperRequest $request)
     {
-        //
+        $data = $request->validated();
+        $skyscraper = Skyscraper::create($data);
+        return new SkyscraperResource($skyscraper);
     }
 
     /**
@@ -35,7 +38,7 @@ class SkyscraperController extends Controller
     public function show(int $id):JsonResource
     {
         $skyscraper = Skyscraper::findOrFail($id);
-        return new SkyscraperResource($skyscraper);
+        return new SkyscraperResource($skyscraper->load("city"));
     }
 
     /**

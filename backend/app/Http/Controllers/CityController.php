@@ -16,7 +16,8 @@ class CityController extends Controller
      */
     public function index():JsonResource
     {
-        $cities = City::all();
+        
+        $cities = City::with(["skyscraper"])->get();
         return CityResource::collection($cities);
         
     }
@@ -37,7 +38,7 @@ class CityController extends Controller
     public function show(int $id)
     {
         $city = City::findOrFail($id);
-        return new CityResource($city);
+        return new CityResource($city->load("skyscraper"));
     }
 
     /**

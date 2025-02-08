@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Skyscraper extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         "name",
@@ -16,4 +17,9 @@ class Skyscraper extends Model
         "stories",
         "finished"
     ];
+
+    public function city()
+    {
+        return $this->belongsTo(Skyscraper::class, "city_id", "id");
+    }
 }
