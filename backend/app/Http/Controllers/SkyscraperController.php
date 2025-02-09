@@ -18,7 +18,7 @@ class SkyscraperController extends Controller
     public function index()
     {
    
-        $skyscrapers = Skyscraper::with(["city"])->get();
+        $skyscrapers = Skyscraper::with("city")->get();
         return SkyscraperResource::collection($skyscrapers);
     }
 

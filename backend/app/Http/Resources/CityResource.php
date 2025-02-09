@@ -15,14 +15,15 @@ class CityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $created = new Carbon ($this->created_at);
+        //$created = new Carbon ($this->created_at);
      
 
         
         return [
             'id'=>$this->id,
             'country_code'=>$this->country_code,
-            'name'=>$this->name
+            'name'=>$this->name,
+            'skyscrapers' => SkyscraperResource::collection($this->whenLoaded('skyscrapers'))
         ];
     }
 }

@@ -17,7 +17,7 @@ class CityController extends Controller
     public function index():JsonResource
     {
         
-        $cities = City::with(["skyscraper"])->get();
+        $cities = City::with("skyscrapers")->get();
         return CityResource::collection($cities);
         
     }

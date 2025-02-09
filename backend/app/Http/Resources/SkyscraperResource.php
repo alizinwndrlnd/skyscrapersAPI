@@ -15,7 +15,7 @@ class SkyscraperResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $created = new Carbon ($this->created_at);
+        //$created = new Carbon ($this->created_at);
 
       
         return [
@@ -25,8 +25,8 @@ class SkyscraperResource extends JsonResource
            'height'=>$this->height,  
            'stories'=>$this->stories,  
            'finished'=>$this->finished,  
-           'id'=>$this->id,  
-           'id'=>$this->id,           
+           'cities'=>CityResource::collection($this->whenLoaded('cities')),  
+                   
         ];
         return parent::toArray($request);
     }
